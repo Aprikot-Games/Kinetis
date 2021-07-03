@@ -6,6 +6,7 @@ var ball_state = STATE.RESIZE
 var initial_mouse
 var diff_vec = 0
 var clamped_len = 0
+var ball_power = 1
 
 func release():
 	if ball_state == STATE.LAUNCH:
@@ -35,7 +36,9 @@ func _process(delta):
 			$CollisionShape2D.scale = $Sprite.scale
 			$Arrow.offset.y = (vec_len * 18) + 16
 			$Arrow/ArrowBody.position.y = vec_len * 18 + 16
-			mass = vec_len
+			mass = 1
+			ball_power = floor(vec_len) + 1
+			print(ball_power)
 	pass
 
 func _unhandled_input(event):
@@ -50,5 +53,5 @@ func _unhandled_input(event):
 
 func _on_Ball_body_entered(body):
 	if body.is_in_group("block"):
-		body.queue_free()
+		body.damage(ball_power)
 		pass
