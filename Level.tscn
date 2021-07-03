@@ -20,7 +20,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 15.8052
+radius = 15.9939
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 480, 11 )
@@ -39,13 +39,13 @@ extents = Vector2( 20, 7 )
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Ball" type="RigidBody2D" parent="." groups=[
-"destructor",
-]]
+[node name="Ball" type="RigidBody2D" parent="."]
 position = Vector2( 255.027, 443.817 )
 input_pickable = true
 physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="Ball"]
@@ -83,8 +83,11 @@ position = Vector2( 551, 480 )
 rotation = 1.5708
 shape = SubResource( 4 )
 
-[node name="Block" type="RigidBody2D" parent="."]
+[node name="Block" type="RigidBody2D" parent="." groups=[
+"block",
+]]
 position = Vector2( 255, 237 )
+mode = 1
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
@@ -99,4 +102,4 @@ frames = SubResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Block"]
 shape = SubResource( 6 )
 
-[connection signal="body_entered" from="Block" to="Block" method="_on_Block_body_entered"]
+[connection signal="body_entered" from="Ball" to="Ball" method="_on_Ball_body_entered"]
